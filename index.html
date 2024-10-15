@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Parser Example</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Basic CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .student-list {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e7f3fe;
+            border: 1px solid #b3d4fc;
+            border-radius: 5px;
+        }
+
+        .student {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student Names</h1>
+        <div class="student-list" id="studentList"></div>
+    </div>
+
+    <script>
+        const parser = new DOMParser();
+        const xmlString = `<students>
+            <student>
+                <name>John Doe</name>
+                <age>21</age>
+                <major>Computer Science</major>
+            </student>
+            <student>
+                <name>Jane Smith</name>
+                <age>22</age>
+                <major>Information Technology</major>
+            </student>
+        </students>`;
+
+        const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+        const students = xmlDoc.getElementsByTagName('student');
+        const studentListDiv = document.getElementById('studentList');
+
+        for (let i = 0; i < students.length; i++) {
+            const name = students[i].getElementsByTagName('name')[0].textContent;
+            const studentDiv = document.createElement('div');
+            studentDiv.classList.add('student');
+            studentDiv.textContent = name;
+            studentListDiv.appendChild(studentDiv);
+        }
+    </script>
+</body>
+</html>
