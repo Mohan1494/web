@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hotelBookings>
+    <booking>
+        <bookingID>1001</bookingID>
+        <customer>
+            <name>John Doe</name>
+            <email>john.doe@example.com</email>
+        </customer>
+        <room>
+            <type>Deluxe</type>
+            <rate>150.00</rate>
+            <checkIn>2024-11-20</checkIn>
+            <checkOut>2024-11-25</checkOut>
+        </room>
+        <payment>
+            <method>Credit Card</method>
+            <amount>750.00</amount>
+            <status>Confirmed</status>
+        </payment>
+    </booking>
+</hotelBookings>

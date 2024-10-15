@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Table with CSS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #ffffff;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #d1e7fd;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Event Registrations</h1>
+    
+    <table border="2">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Event Type</th>
+                <th>Registration Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Doe</td>
+                <td>john.doe@example.com</td>
+                <td>Conference</td>
+                <td>2024-10-01</td>
+            </tr>
+            <tr>
+                <td>Jane Smith</td>
+                <td>jane.smith@example.com</td>
+                <td>Workshop</td>
+                <td>2024-10-02</td>
+            </tr>
+            <tr>
+                <td>Michael Johnson</td>
+                <td>michael.j@example.com</td>
+                <td>Meetup</td>
+                <td>2024-10-03</td>
+            </tr>
+            <tr>
+                <td>Emily Davis</td>
+                <td>emily.d@example.com</td>
+                <td>Webinar</td>
+                <td>2024-10-04</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

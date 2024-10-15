@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<school>
+    <student>
+        <name>Jane Doe</name>
+        <studentID>12345</studentID>
+        <class>10th Grade</class>
+        <grades>
+            <subject>
+                <name>Mathematics</name>
+                <grade>A</grade>
+            </subject>
+            <subject>
+                <name>Science</name>
+                <grade>B</grade>
+            </subject>
+        </grades>
+    </student>
+    <student>
+        <name>Mark Brown</name>
+        <studentID>12346</studentID>
+        <class>10th Grade</class>
+        <grades>
+            <subject>
+                <name>Mathematics</name>
+                <grade>B+</grade>
+            </subject>
+            <subject>
+                <name>Science</name>
+                <grade>A-</grade>
+            </subject>
+        </grades>
+    </student>
+</school>
