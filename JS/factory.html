@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AngularJS Factory Example with Filters</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        h3, h4 {
+            color: #333;
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            padding: 8px;
+            margin: 5px 0;
+            width: 100%;
+            max-width: 300px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li button {
+            background-color: #f44336;
+            margin-top: 10px;
+        }
+
+        li button:hover {
+            background-color: #d32f2f;
+        }
+
+        p {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body ng-app="shoppingApp">
+    <div ng-controller="cartController">
+        <h3>Shopping Cart</h3>
+        <p>Item Name: <input type="text" ng-model="newItem.name"></p>
+        <p>Quantity: <input type="number" ng-model="newItem.quantity"></p>
+        <p>Price: <input type="number" ng-model="newItem.price"></p>
+        <button ng-click="addItem()">Add Item</button>
+
+        <h4>Items in Cart:</h4>
+        <ul>
+            <li ng-repeat="item in items">
+                {{item.name | uppercase}} - Quantity: {{item.quantity | number: 0}} - Price: {{item.price | currency : '$'}}
+                <br>Added On: {{item.dateAdded | date:'medium'}}
+                <button ng-click="removeItem($index)">Remove</button>
+                <br>Item JSON: {{item | json}}
+            </li>
+        </ul>
+
+        <div class="cart-summary">
+            <h4>Total Items: {{totalItems()}}</h4>
+            <h4>Total Price: {{totalPrice() | currency : '$'}}</h4>
+        </div>
+    </div>
+
+    <script>
+        // Define the AngularJS module
+        var app = angular.module("shoppingApp", []);
+
+        // Define the factory
+        app.factory("cartFactory", function ($http) {
+            const apiUrl = 'http://localhost:5000/api/items'; // Update this URL if needed
+
+            return {
+                addItem: function (item) {
+                    return $http.post(apiUrl, item);
+                },
+                removeItem: function (itemId) {
+                    return $http.delete(`${apiUrl}/${itemId}`);
+                },
+                getItems: function () {
+                    return $http.get(apiUrl);
+                },
+                totalItems: function (items) {
+                    return items.length;
+                },
+                totalPrice: function (items) {
+                    return items.reduce((total, item) => total + (item.quantity * item.price), 0);
+                }
+            };
+        });
+
+        // Define the controller
+        app.controller("cartController", function ($scope, cartFactory) {
+            $scope.items = [];
+            $scope.newItem = {}; // For storing new item data
+
+            // Fetch initial items from the database
+            cartFactory.getItems().then(function (response) {
+                $scope.items = response.data;
+            });
+
+            $scope.addItem = function () {
+                cartFactory.addItem($scope.newItem).then(function (response) {
+                    $scope.items.push(response.data);
+                    $scope.newItem = {}; // Clear input fields after adding
+                });
+            };
+
+            $scope.removeItem = function (index) {
+                const itemId = $scope.items[index]._id; // Assuming the MongoDB ID is stored in _id
+                cartFactory.removeItem(itemId).then(function () {
+                    $scope.items.splice(index, 1);
+                });
+            };
+
+            $scope.totalItems = function () {
+                return cartFactory.totalItems($scope.items);
+            };
+
+            $scope.totalPrice = function () {
+                return cartFactory.totalPrice($scope.items);
+            };
+        });
+    </script>
+</body>
+
+</html>

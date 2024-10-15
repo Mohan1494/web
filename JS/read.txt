@@ -1,0 +1,38 @@
+shopping-app/
+│
+├── shopping-app-backend/
+│   ├──node_modules/          # Automatically created after running npm install
+│   ├──package.json
+│   ├── server.js
+│   └── package-lock.json
+│
+└── shopping-app-frontend/
+├── index.html
+
+mkdir shopping-app
+cd shopping-app
+
+mkdir shopping-app-backend
+cd shopping-app-backend
+•	npminit -y
+•	npm install express mongoose body-parser cors
+•	create server.js
+
+cd ..
+mkdir shopping-app-frontend
+cd shopping-app-frontend
+•	create index.html
+
+make sure mongodb server and shell path is available in environment variable
+ create c:data/db
+open new terminal in administer mode
+•	cd "C:\Program Files\MongoDB\Server\7.0\bin"
+•	mongod --dbpath C:\data\db
+
+Open another terminal window or tab, navigate to the shopping-app-backend directory, and run:node server.js
+
+Open another terminal window or tab, navigate to the shopping-app-frontend directory, and run:
+npx http-server
+
+
+
